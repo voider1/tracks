@@ -22,18 +22,18 @@ pub enum Instruction {
     Xor (Operand, Operand, Operand),
 
     // Data transfer instructions
-    Ldm (Operand, Operand),
-    Stm (Operand, Operand),
-    Str (Operand, Operand),
+    Ldm (Operand, Operand, Operand),
+    Stm (Operand, Operand, Operand),
+    Str (Operand, Operand, Operand),
 
     // Conditional instructions
-    Bisz (Operand, Operand),
-    Jcc (Operand, Operand),
+    Bisz (Operand, Operand, Operand),
+    Jcc (Operand, Operand, Operand),
 
     // Other instructions,
-    Undef (Operand),
-    Unkn,
-    Nop,
+    Undef (Operand, Operand, Operand),
+    Unkn (Operand, Operand, Operand),
+    Nop (Operand, Operand, Operand),
 }
 
 impl fmt::Display for Operand {
