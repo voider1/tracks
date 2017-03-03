@@ -4,6 +4,7 @@ pub enum Operand {
     IntegerLiteral {size: u8, value: i64},
     Register {index: u64, size: u8},
     Subaddress {size: u8, value: u64},
+    Empty
 }
 
 pub enum Instruction {
@@ -41,6 +42,7 @@ impl fmt::Display for Operand {
             Operand::IntegerLiteral{size:s, value:v} => write!(f, "{:x}/b{}", v, s),
             Operand::Register{index:i, size:s} => write!(f, "t{}/b{}", i, s),
             Operand::Subaddress{size:s, value:v} => write!(f, "{:x}/b{}", v, s),
+            Operand::Empty => write!(f, ""),
         }
     }
 }
