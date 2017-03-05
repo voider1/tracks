@@ -1,7 +1,9 @@
 use std::fmt;
 use std::collections::HashMap;
+use std::any::Any;
+use std::option::Option;
 
-pub type MetaData<'a> = HashMap<&'a str, &'a str>;
+pub type MetaData<'a> = HashMap<&'a str, &'a Any>;
 
 pub enum Operand {
     IntegerLiteral {size: u8, value: i64},
@@ -12,31 +14,31 @@ pub enum Operand {
 
 pub enum Instruction<'a> {
     // Arithmetic instructions
-    Add (Operand, Operand, Operand, &'a MetaData<'a>),
-    Sub (Operand, Operand, Operand, &'a MetaData<'a>),
-    Mul (Operand, Operand, Operand, &'a MetaData<'a>),
-    Div (Operand, Operand, Operand, &'a MetaData<'a>),
-    Mod (Operand, Operand, Operand, &'a MetaData<'a>),
-    Bsh (Operand, Operand, Operand, &'a MetaData<'a>),
+    Add (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Sub (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Mul (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Div (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Mod (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Bsh (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
 
     // Bitwise instructions
-    And (Operand, Operand, Operand, &'a MetaData<'a>),
-    Or (Operand, Operand, Operand, &'a MetaData<'a>),
-    Xor (Operand, Operand, Operand, &'a MetaData<'a>),
+    And (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Or (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Xor (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
 
     // Data transfer instructions
-    Ldm (Operand, Operand, Operand, &'a MetaData<'a>),
-    Stm (Operand, Operand, Operand, &'a MetaData<'a>),
-    Str (Operand, Operand, Operand, &'a MetaData<'a>),
+    Ldm (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Stm (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Str (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
 
     // Conditional instructions
-    Bisz (Operand, Operand, Operand, &'a MetaData<'a>),
-    Jcc (Operand, Operand, Operand, &'a MetaData<'a>),
+    Bisz (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Jcc (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
 
     // Other instructions,
-    Undef (Operand, Operand, Operand, &'a MetaData<'a>),
-    Unkn (Operand, Operand, Operand, &'a MetaData<'a>),
-    Nop (Operand, Operand, Operand, &'a MetaData<'a>),
+    Undef (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Unkn (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
+    Nop (Operand, Operand, Operand, Option<&'a MetaData<'a>>),
 }
 
 impl fmt::Display for Operand {
