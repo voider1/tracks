@@ -19,7 +19,7 @@ Learning is also the reason for reinventing the wheel as suppose to using existi
 reverse-engineering frameworks.
 How *intermediate languages*, such as [BIL](https://users.ece.cmu.edu/~aavgerin/papers/bap-cav-11.pdf),
 [REIL](http://www.zynamics.com/downloads/csw09.pdf), and [ESIL](https://radare.gitbooks.io/radare2book/content/esil.html),
-compare to each other should be one of the questions that can be investigate with *Tracks*. 
+compare to each other should be one of the questions that can be investigated with *Tracks*. 
 
 ## What is Tracks not?
 
