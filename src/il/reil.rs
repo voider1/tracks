@@ -1,56 +1,61 @@
 use std::fmt;
+use std::collections::HashMap;
+
+pub type MetaData<'a> = HashMap<&'a str, &'a str>;
 
 pub enum Operand {
-    IntegerLiteral { size: u8, value: i64 },
-    Register { index: u64, size: u8 },
-    Subaddress { size: u8, value: u64 },
+    IntegerLiteral {size: u8, value: i64},
+    Register {index: u64, size: u8},
+    Subaddress {size: u8, value: u64},
+    Empty
 }
 
-pub enum Instruction {
+pub enum Instruction<'a> {
     // Arithmetic instructions
-    Add(Operand, Operand, Operand),
-    Sub(Operand, Operand, Operand),
-    Mul(Operand, Operand, Operand),
-    Div(Operand, Operand, Operand),
-    Mod(Operand, Operand, Operand),
-    Bsh(Operand, Operand, Operand),
+    Add (Operand, Operand, Operand, &'a MetaData<'a>),
+    Sub (Operand, Operand, Operand, &'a MetaData<'a>),
+    Mul (Operand, Operand, Operand, &'a MetaData<'a>),
+    Div (Operand, Operand, Operand, &'a MetaData<'a>),
+    Mod (Operand, Operand, Operand, &'a MetaData<'a>),
+    Bsh (Operand, Operand, Operand, &'a MetaData<'a>),
 
     // Bitwise instructions
-    And(Operand, Operand, Operand),
-    Or(Operand, Operand, Operand),
-    Xor(Operand, Operand, Operand),
+    And (Operand, Operand, Operand, &'a MetaData<'a>),
+    Or (Operand, Operand, Operand, &'a MetaData<'a>),
+    Xor (Operand, Operand, Operand, &'a MetaData<'a>),
 
     // Data transfer instructions
-    Ldm(Operand, Operand),
-    Stm(Operand, Operand),
-    Str(Operand, Operand),
+    Ldm (Operand, Operand, Operand, &'a MetaData<'a>),
+    Stm (Operand, Operand, Operand, &'a MetaData<'a>),
+    Str (Operand, Operand, Operand, &'a MetaData<'a>),
 
     // Conditional instructions
-    Bisz(Operand, Operand),
-    Jcc(Operand, Operand),
+    Bisz (Operand, Operand, Operand, &'a MetaData<'a>),
+    Jcc (Operand, Operand, Operand, &'a MetaData<'a>),
 
     // Other instructions,
-    Undef(Operand),
-    Unkn,
-    Nop,
+    Undef (Operand, Operand, Operand, &'a MetaData<'a>),
+    Unkn (Operand, Operand, Operand, &'a MetaData<'a>),
+    Nop (Operand, Operand, Operand, &'a MetaData<'a>),
 }
 
 impl fmt::Display for Operand {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
-            Operand::IntegerLiteral { size: s, value: v } => write!(f, "{:x}/b{}", v, s),
-            Operand::Register { index: i, size: s } => write!(f, "t{}/b{}", i, s),
-            Operand::Subaddress { size: s, value: v } => write!(f, "{:x}/b{}", v, s),
+            Operand::IntegerLiteral{size:s, value:v} => write!(f, "{:x}/b{}", v, s),
+            Operand::Register{index:i, size:s} => write!(f, "t{}/b{}", i, s),
+            Operand::Subaddress{size:s, value:v} => write!(f, "{:x}/b{}", v, s),
+            Operand::Empty => write!(f, ""),
         }
     }
 }
 
-impl fmt::Display for Instruction {
+impl<'a> fmt::Display for Instruction<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
-            Instruction::Add(ref in1, ref in2, ref out) => {
-                write!(f, "add {}, {}, {}", in1, in2, out)
-            }
+            Instruction::Add(ref in1, ref in2, ref out, _) => write!(f, "add {}, {}, {}", in1, in2, out),
+            Instruction::Nop(_, _,_, _) => write!(f, "nop"),
+            Instruction::Unkn(_, _, _, _) => write!(f, "unkn"),
             _ => write!(f, "unkn"),
         }
     }
