@@ -14,31 +14,31 @@ pub enum Operand {
 
 pub enum Instruction {
     // Arithmetic instructions
-    Add (Operand, Operand, Operand, Option<MetaData>),
-    Sub (Operand, Operand, Operand, Option<MetaData>),
-    Mul (Operand, Operand, Operand, Option<MetaData>),
-    Div (Operand, Operand, Operand, Option<MetaData>),
-    Mod (Operand, Operand, Operand, Option<MetaData>),
-    Bsh (Operand, Operand, Operand, Option<MetaData>),
+    Add(Operand, Operand, Operand, Option<MetaData>),
+    Sub(Operand, Operand, Operand, Option<MetaData>),
+    Mul(Operand, Operand, Operand, Option<MetaData>),
+    Div(Operand, Operand, Operand, Option<MetaData>),
+    Mod(Operand, Operand, Operand, Option<MetaData>),
+    Bsh(Operand, Operand, Operand, Option<MetaData>),
 
     // Bitwise instructions
-    And (Operand, Operand, Operand, Option<MetaData>),
-    Or (Operand, Operand, Operand, Option<MetaData>),
-    Xor (Operand, Operand, Operand, Option<MetaData>),
+    And(Operand, Operand, Operand, Option<MetaData>),
+    Or(Operand, Operand, Operand, Option<MetaData>),
+    Xor(Operand, Operand, Operand, Option<MetaData>),
 
     // Data transfer instructions
-    Ldm (Operand, Operand, Operand, Option<MetaData>),
-    Stm (Operand, Operand, Operand, Option<MetaData>),
-    Str (Operand, Operand, Operand, Option<MetaData>),
+    Ldm(Operand, Operand, Operand, Option<MetaData>),
+    Stm(Operand, Operand, Operand, Option<MetaData>),
+    Str(Operand, Operand, Operand, Option<MetaData>),
 
     // Conditional instructions
-    Bisz (Operand, Operand, Operand, Option<MetaData>),
-    Jcc (Operand, Operand, Operand, Option<MetaData>),
+    Bisz(Operand, Operand, Operand, Option<MetaData>),
+    Jcc(Operand, Operand, Operand, Option<MetaData>),
 
     // Other instructions,
-    Undef (Operand, Operand, Operand, Option<MetaData>),
-    Unkn (Operand, Operand, Operand, Option<MetaData>),
-    Nop (Operand, Operand, Operand, Option<MetaData>),
+    Undef(Operand, Operand, Operand, Option<MetaData>),
+    Unkn(Operand, Operand, Operand, Option<MetaData>),
+    Nop(Operand, Operand, Operand, Option<MetaData>),
 }
 
 impl fmt::Display for Operand {
